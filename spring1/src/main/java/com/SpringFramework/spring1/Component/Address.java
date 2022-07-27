@@ -1,0 +1,44 @@
+package com.SpringFramework.spring1.Component;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component
+public class Address {
+	
+	@Value("Multan Road")
+	private String street;
+	@Value("Lahore.")
+	private String city;
+	public Address() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String toString() {
+		return "Address [street=" + street + ", city=" + city + "]";
+	}
+
+	public Address(String street, String city) {
+		super();
+		this.street = street;
+		this.city = city;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+}
