@@ -3,10 +3,11 @@ package com.RestProject1.springrestapi.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import com.RestProject1.springrestapi.DTO.EmployeeDTO;
 import com.RestProject1.springrestapi.model.Employee;
 import com.RestProject1.springrestapi.repository.BenifitsRepository;
 import com.RestProject1.springrestapi.repository.EmployeeRepository;
@@ -19,7 +20,8 @@ public class BasicEmployeeService implements EmployeeService{
 	 @Autowired
 	private EmployeeRepository empRepository; 
 	
-
+	 @Autowired
+	 private ModelMapper modelMapper;
 
 	
 	@Override
@@ -31,6 +33,7 @@ public class BasicEmployeeService implements EmployeeService{
 
 	@Override
 	public Employee saveEmployee(Employee e) {
+		
 		
 		return empRepository.save(e);
 	}
@@ -71,6 +74,19 @@ public class BasicEmployeeService implements EmployeeService{
 	public List<Employee> getEmployeesbyNameandLocation(String name, String location) {
 
 		return empRepository.findByNameAndLocation(name, location);
+	}
+	
+	
+	public Employee dtoToEmp(EmployeeDTO dto)
+	{
+		Employee emp = this.modelMapper.map(dto, Employee.class);
+		return emp;
+	}
+	
+	public EmployeeDTO empToDto(Employee e)
+	{
+		EmployeeDTO dto = this.modelMapper.map(e, EmployeeDTO.class);
+		return dto;
 	}
 
 }
