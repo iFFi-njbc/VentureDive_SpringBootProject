@@ -65,4 +65,12 @@ public class BasicEmployeeService implements EmployeeService{
 		return empRepository.save(emp);
 	}
 
+
+
+	@Override
+	public List<Employee> getEmployeesbyNameandLocation(String name, String location) {
+
+		return empRepository.findByNameAndLocation(name, location);
+	}
+
 }

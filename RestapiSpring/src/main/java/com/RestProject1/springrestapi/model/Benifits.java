@@ -1,5 +1,7 @@
 package com.RestProject1.springrestapi.model;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -26,20 +30,51 @@ public class Benifits {
 	@Column(name = "healthcare")
 	private String healthcare;
 	
+/*	@OneToMany(mappedBy = "benifits")
+	private List<Employee> employees; */
+	
 
 	public Benifits() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Benifits(Long id, String remote, String laptop, String heathcare) {
+
+
+
+
+
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+
+	public Benifits(Long id, String remote, String laptop, String healthcare) {
 		super();
 		this.id = id;
 		this.remote = remote;
 		this.laptop = laptop;
-		this.healthcare = heathcare;
-		//this.employee = employee;
+		this.healthcare = healthcare;
+		//this.employees = employees;
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 	@Override
@@ -47,9 +82,13 @@ public class Benifits {
 		return "Benifits [id=" + id + ", remote=" + remote + ", laptop=" + laptop + ", healthcare=" + healthcare + "]";
 	}
 
-	public Long getId() {
-		return id;
-	}
+
+
+
+
+
+
+
 	public void setId(Long id) {
 		this.id = id;
 	}

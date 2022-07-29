@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -31,6 +32,7 @@ public class Employee {
 	@Column(name = "id")
 	private Long id;
 	
+
 	public Long getId() {
 		return id;
 	}
@@ -48,19 +50,29 @@ public class Employee {
 	@Column(name = "email")
 	private String email;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "benefits_id", referencedColumnName = "id")
+	@ManyToOne
+	@JoinColumn(name = "department")
+	private Department department; 
+	
+	@ManyToOne
+	@JoinColumn(name = "benefits_id")
 	private Benifits benifits;
 	
+	@ManyToOne
+	@JoinColumn(name = "manager")
+	private Manager manager;
+	
 
-	public String getDepartment() {
+
+	
+
+	public Department getDepartment() {
 		return department;
 	}
-	public void setDepartment(String department) {
+	public void setDepartment(Department department) {
 		this.department = department;
 	}
-	@Column(name = "department")
-	private String department; 
+
 	
 	
 	public String getName() {
@@ -88,10 +100,32 @@ public class Employee {
 		this.email = email;
 	}
 
+	public Manager getManager() {
+		return manager;
+	}
+	public void setManager(Manager manager) {
+		this.manager = manager;
+	}
 
 
 
-
+	public Employee(Long id, String name, Long age, String location, String email, Department department,
+			Benifits benifits, Manager manager) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.age = age;
+		this.location = location;
+		this.email = email;
+		this.department = department;
+		this.benifits = benifits;
+		this.manager = manager;
+	}
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", age=" + age + ", location=" + location + ", email=" + email
+				+ ", department=" + department + ", benifits=" + benifits + ", manager=" + manager + "]";
+	}
 	public Employee() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -102,26 +136,6 @@ public class Employee {
 	public void setBenifits(Benifits benifits) {
 		this.benifits = benifits;
 	}
-	@Override
-	public String toString() {
-		return "Employee [id=" + id + ", name=" + name + ", age=" + age + ", location=" + location + ", email=" + email
-				+ ", benifits=" + benifits + ", department=" + department + "]";
-	}
-	public Employee(Long id, String name, Long age, String location, String email, Benifits benifits,
-			String department) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.age = age;
-		this.location = location;
-		this.email = email;
-		this.benifits = benifits;
-		this.department = department;
-	}
-
-
 
 	
-
-
 }
