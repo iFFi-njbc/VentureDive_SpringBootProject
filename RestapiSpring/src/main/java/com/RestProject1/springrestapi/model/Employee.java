@@ -60,7 +60,7 @@ public class Employee {
 	
 	@ManyToOne
 	@JoinColumn(name = "manager")
-	private Manager manager;
+	private Employee manager;
 	
 
 
@@ -100,17 +100,17 @@ public class Employee {
 		this.email = email;
 	}
 
-	public Manager getManager() {
+	public Employee getManager() {
 		return manager;
 	}
-	public void setManager(Manager manager) {
+	public void setManager(Employee manager) {
 		this.manager = manager;
 	}
 
 
 
 	public Employee(Long id, String name, Long age, String location, String email, Department department,
-			Benifits benifits, Manager manager) {
+			Benifits benifits, Employee manager) {
 		super();
 		this.id = id;
 		this.name = name;

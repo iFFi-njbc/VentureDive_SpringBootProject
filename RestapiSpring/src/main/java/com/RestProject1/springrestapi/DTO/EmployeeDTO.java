@@ -9,7 +9,8 @@ import javax.persistence.ManyToOne;
 
 import com.RestProject1.springrestapi.model.Benifits;
 import com.RestProject1.springrestapi.model.Department;
-import com.RestProject1.springrestapi.model.Manager;
+import com.RestProject1.springrestapi.model.Employee;
+
 
 public class EmployeeDTO {
 	
@@ -17,106 +18,134 @@ public class EmployeeDTO {
 	private Long id;
 	
 
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	private String name;
 
 	private Long age;
 
-	private String location;
-
 	private String email;
 	
 
-	private Department department; 
+	private  Long department; 
 	
 
-	private Benifits benifits;
+	private Long benifits;
 	
 
-	private Manager manager;
+	private Long manager;
 	
+	private String location;
 
 
-	
-
-	public Department getDepartment() {
-		return department;
-	}
-	public void setDepartment(Department department) {
-		this.department = department;
-	}
-
-	
-	
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public Long getAge() {
-		return age;
-	}
-	public void setAge(Long age) {
-		this.age = age;
-	}
 	public String getLocation() {
 		return location;
 	}
+
+
 	public void setLocation(String location) {
 		this.location = location;
 	}
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public Long getAge() {
+		return age;
+	}
+
+
+	public void setAge(Long age) {
+		this.age = age;
+	}
+
+
 	public String getEmail() {
 		return email;
 	}
+
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	public Manager getManager() {
+
+	public Long getDepartment() {
+		return department;
+	}
+
+
+	public void setDepartment(Long department) {
+		this.department = department;
+	}
+
+
+	public Long getBenifits() {
+		return benifits;
+	}
+
+
+	public void setBenifits(Long benifits) {
+		this.benifits = benifits;
+	}
+
+
+	public Long getManager() {
 		return manager;
 	}
-	public void setManager(Manager manager) {
+
+
+	public void setManager(Long manager) {
 		this.manager = manager;
 	}
 
 
 
-	public EmployeeDTO(Long id, String name, Long age, String location, String email, Department department,
-			Benifits benifits, Manager manager) {
+
+
+	@Override
+	public String toString() {
+		return "EmployeeDTO [id=" + id + ", name=" + name + ", age=" + age + ", email=" + email + ", department="
+				+ department + ", benifits=" + benifits + ", manager=" + manager + ", location=" + location + "]";
+	}
+
+
+	public EmployeeDTO(Long id, String name, Long age, String email, Long department, Long benifits, Long manager,
+			String location) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.age = age;
-		this.location = location;
 		this.email = email;
 		this.department = department;
 		this.benifits = benifits;
 		this.manager = manager;
+		this.location = location;
 	}
-	@Override
-	public String toString() {
-		return "Employee [id=" + id + ", name=" + name + ", age=" + age + ", location=" + location + ", email=" + email
-				+ ", department=" + department + ", benifits=" + benifits + ", manager=" + manager + "]";
-	}
+
+
 	public EmployeeDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Benifits getBenifits() {
-		return benifits;
-	}
-	public void setBenifits(Benifits benifits) {
-		this.benifits = benifits;
-	}
+	
+
 
 	
 }
-
-

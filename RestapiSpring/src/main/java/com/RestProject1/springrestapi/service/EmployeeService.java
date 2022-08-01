@@ -2,7 +2,7 @@ package com.RestProject1.springrestapi.service;
 
 import java.util.List;
 
-
+import com.RestProject1.springrestapi.DTO.EmployeeDTO;
 import com.RestProject1.springrestapi.model.Employee;
 
 public interface EmployeeService {

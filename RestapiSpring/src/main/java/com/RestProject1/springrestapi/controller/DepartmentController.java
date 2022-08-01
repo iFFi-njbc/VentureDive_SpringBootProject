@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.RestProject1.springrestapi.Converter.DepartmentConvertor;
+import com.RestProject1.springrestapi.DTO.DepartmentDTO;
+import com.RestProject1.springrestapi.DTO.EmployeeDTO;
 import com.RestProject1.springrestapi.model.Benifits;
 import com.RestProject1.springrestapi.model.Department;
 import com.RestProject1.springrestapi.model.Employee;
@@ -32,33 +35,46 @@ public class DepartmentController {
 	@Autowired
 	private DepartmentService dService;
 	
+	@Autowired
+	private DepartmentConvertor convert;
+	
 
 	
 	@GetMapping("/departments")  //--->@RequestMapping(--)
-	public List<Department> getDepartments()
+	public List<DepartmentDTO> getDepartments()
 	{
-		return dService.getDepartments();
+		List<Department> d = dService.getDepartments();
+		List<DepartmentDTO> dto = convert.entityToDto(d);
+		return dto;
 	}
 	
 	@GetMapping("/departments/{id}") //PathVariable
-	public Department getDepartment(@PathVariable("id") Long id)
+	public DepartmentDTO getDepartment(@PathVariable("id") Long id)
 	{
-		return dService.getDepartment(id);
+		return convert.entityToDto(dService.getDepartment(id));
 	}
 	
 	@PutMapping("/departments/{id}")
-	public Department updateDepartment(@PathVariable Long id, @RequestBody Department d)
+	public DepartmentDTO updateDepartment(@PathVariable Long id, @RequestBody DepartmentDTO dto)
 	{
+		
 		System.out.println("Updating the Department for ID : " + id);
-		d.setId(id);
-		return dService.updateDepartment(d);
+		dto.setId(id);
+		
+		Department d = new Department();
+		d = convert.dtoToEntity(dto);
+		
+	
+		return convert.entityToDto(dService.updateDepartment(d));
 	}
 	
 	@PostMapping("/departments")
-	public Department saveDepartment(@RequestBody Department d)
+	public DepartmentDTO saveDepartment(@RequestBody DepartmentDTO dto)
 	{
+		Department d = new Department();
+		d = convert.dtoToEntity(dto);
 
-		return dService.saveDepartment(d);
+		return convert.entityToDto(dService.saveDepartment(d));
 	}
 	
 	//localhost:8080/employees?id=24

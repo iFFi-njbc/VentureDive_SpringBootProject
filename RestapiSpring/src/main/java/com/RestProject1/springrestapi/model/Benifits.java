@@ -23,8 +23,8 @@ public class Benifits {
 	@Column(name = "id")
 	private Long id;
 	
-	@Column(name = "remote")
-	private String remote;
+	@Column(name = "RetirementPlan")
+	private String retirementPlan;
 	@Column(name = "laptop")
 	private String laptop;
 	@Column(name = "healthcare")
@@ -52,10 +52,10 @@ public class Benifits {
 
 
 
-	public Benifits(Long id, String remote, String laptop, String healthcare) {
+	public Benifits(Long id, String retirementPlan, String laptop, String healthcare) {
 		super();
 		this.id = id;
-		this.remote = remote;
+		this.retirementPlan = retirementPlan;
 		this.laptop = laptop;
 		this.healthcare = healthcare;
 		//this.employees = employees;
@@ -79,7 +79,7 @@ public class Benifits {
 
 	@Override
 	public String toString() {
-		return "Benifits [id=" + id + ", remote=" + remote + ", laptop=" + laptop + ", healthcare=" + healthcare + "]";
+		return "Benifits [id=" + id + ", remote=" + retirementPlan + ", laptop=" + laptop + ", healthcare=" + healthcare + "]";
 	}
 
 
@@ -92,11 +92,11 @@ public class Benifits {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getRemote() {
-		return remote;
+	public String getRetirementPlan() {
+		return retirementPlan;
 	}
-	public void setRemote(String remote) {
-		this.remote = remote;
+	public void setRetirementPlan(String retirementPlan) {
+		this.retirementPlan = retirementPlan;
 	}
 	public String getLaptop() {
 		return laptop;

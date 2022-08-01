@@ -16,7 +16,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.RestProject1.springrestapi.Converter.BenifitsConvertor;
+import com.RestProject1.springrestapi.Converter.Convertor;
+import com.RestProject1.springrestapi.DTO.BenifitsDTO;
+import com.RestProject1.springrestapi.DTO.DepartmentDTO;
+import com.RestProject1.springrestapi.DTO.EmployeeDTO;
 import com.RestProject1.springrestapi.model.Benifits;
+import com.RestProject1.springrestapi.model.Department;
 import com.RestProject1.springrestapi.model.Employee;
 import com.RestProject1.springrestapi.service.BasicEmployeeService;
 import com.RestProject1.springrestapi.service.BenifitsService;
@@ -31,31 +37,49 @@ public class BenifitsController {
 
 		@Autowired
 		private BasicEmployeeService eService;
+		
+		
+	@Autowired
+	private BenifitsConvertor convert;
+	
+	@Autowired
+	private Convertor convert2;
 	
 	@GetMapping("/benifits")  //--->@RequestMapping(--)
-	public List<Benifits> getBenifits()
+	public List<BenifitsDTO> getBenifits()
 	{
-		return bService.getBenifits();
+		List<Benifits> b = bService.getBenifits();
+		List<BenifitsDTO> dto = convert.entityToDto(b);
+		return dto;
 	}
 	
 	@GetMapping("/benifits/{id}") //PathVariable
-	public Benifits getBenifit(@PathVariable("id") Long id)
+	public BenifitsDTO getBenifit(@PathVariable("id") Long id)
 	{
-		return bService.getbenifit(id);
+		return convert.entityToDto(bService.getbenifit(id));
 	}
 	
 	@PutMapping("/benifits/{id}")
-	public Benifits updateBenifit(@PathVariable Long id, @RequestBody Benifits b)
+	public BenifitsDTO updateBenifit(@PathVariable Long id, @RequestBody BenifitsDTO dto)
 	{
 		System.out.println("Updating the Benifits Data for  ID : " + id);
-		b.setId(id);
-		return bService.updateBenifit(b);
+		dto.setId(id);
+		
+		Benifits b = new Benifits();
+		b = convert.dtoToEntity(dto);
+		
+	
+		return convert.entityToDto(bService.updateBenifit(b));
+		
 	}
 	
 	@PostMapping("/benifits")
-	public Benifits saveBenifit(@RequestBody Benifits b)
+	public BenifitsDTO saveBenifit(@RequestBody BenifitsDTO dto)
 	{
-		return bService.saveBenefit(b);
+		Benifits b = new Benifits();
+		b = convert.dtoToEntity(dto);
+
+		return convert.entityToDto(bService.saveBenefit(b));
 	}
 	
 	//localhost:8080/employees?id=24
@@ -66,9 +90,12 @@ public class BenifitsController {
 	}
 	
 	@GetMapping("/getEmployeesByBenifits")
-	public List<Employee> getEmployees(@RequestParam("id") Long id)
+	public List<EmployeeDTO> getEmployees(@RequestParam("id") Long id)
 	{
-		return bService.getEmployees(id);
+		List<Employee> emp = bService.getEmployees(id);
+		List<EmployeeDTO> dto = convert2.entityToDto(emp);
+		
+		return dto;
 	}
 	
 }
