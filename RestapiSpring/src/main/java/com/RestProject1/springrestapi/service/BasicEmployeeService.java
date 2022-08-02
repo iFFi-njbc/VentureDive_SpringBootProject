@@ -3,6 +3,11 @@ package com.RestProject1.springrestapi.service;
 import java.util.List;
 import java.util.Optional;
 
+
+import javax.persistence.EntityManager;
+
+import org.hibernate.Session;
+import org.hibernate.Filter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +32,9 @@ public class BasicEmployeeService implements EmployeeService{
 	 
 	 @Autowired
 	 private Convertor convert;
+	 
+	 @Autowired
+	 private EntityManager entityManager;
 	 
 
 	
@@ -161,6 +169,17 @@ public class BasicEmployeeService implements EmployeeService{
 			throw new BuisnessException("607", "Enter Name and Location properly !!! ");
 		}
 		return empRepository.findByNameAndLocation(name, location);
+	}
+	
+	
+	
+	public List<Employee> findAllFilter(boolean isDeleted) {
+	    Session session = entityManager.unwrap(Session.class);
+	    Filter filter = session.enableFilter("deletedEmployeeFilter");
+	    filter.setParameter("isDeleted", isDeleted);
+	    List<Employee> users = empRepository.findAll();
+	    session.disableFilter("deletedEmployeeFilter");
+	    return users;
 	}
 	
 	

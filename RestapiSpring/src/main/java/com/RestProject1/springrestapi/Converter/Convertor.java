@@ -25,6 +25,7 @@ public class Convertor {
 		dto.setBenifits(emp.getBenifits().getId());
 		dto.setDepartment(emp.getDepartment().getId());
 		dto.setLocation(emp.getLocation());
+		dto.setDeleted(emp.getDeleted());
 		if(emp.getManager() != null)
 		{
 			dto.setManager(emp.getManager().getId());
@@ -66,6 +67,7 @@ public class Convertor {
 		emp.setBenifits(b);
 		emp.setDepartment(d);
 		emp.setManager(m);
+		emp.setDeleted(dto.getDeleted());
 		
 		return emp;
 	}

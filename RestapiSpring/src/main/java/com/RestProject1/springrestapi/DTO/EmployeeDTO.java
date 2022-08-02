@@ -34,6 +34,18 @@ public class EmployeeDTO {
 	private Long manager;
 	
 	private String location;
+	
+	private Boolean deleted = Boolean.FALSE;
+
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
 
 
 	public String getLocation() {
@@ -119,15 +131,11 @@ public class EmployeeDTO {
 
 
 
-	@Override
-	public String toString() {
-		return "EmployeeDTO [id=" + id + ", name=" + name + ", age=" + age + ", email=" + email + ", department="
-				+ department + ", benifits=" + benifits + ", manager=" + manager + ", location=" + location + "]";
-	}
+	
 
 
 	public EmployeeDTO(Long id, String name, Long age, String email, Long department, Long benifits, Long manager,
-			String location) {
+			String location, Boolean deleted) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -137,6 +145,15 @@ public class EmployeeDTO {
 		this.benifits = benifits;
 		this.manager = manager;
 		this.location = location;
+		this.deleted = deleted;
+	}
+
+
+	@Override
+	public String toString() {
+		return "EmployeeDTO [id=" + id + ", name=" + name + ", age=" + age + ", email=" + email + ", department="
+				+ department + ", benifits=" + benifits + ", manager=" + manager + ", location=" + location
+				+ ", deleted=" + deleted + "]";
 	}
 
 

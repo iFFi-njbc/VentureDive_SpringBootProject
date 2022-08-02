@@ -13,5 +13,5 @@ public interface EmployeeService {
 	public void deleteEmployee(Long id);
 	public Employee updateEmployee(Employee emp);
 	public List<Employee> getEmployeesbyNameandLocation(String name, String location);
-
+	public List<Employee> findAllFilter(boolean isDeleted);
 }

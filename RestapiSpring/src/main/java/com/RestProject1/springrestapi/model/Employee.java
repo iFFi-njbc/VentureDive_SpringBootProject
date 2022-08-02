@@ -15,6 +15,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
+import org.hibernate.annotations.SQLDelete;
+
 
 
 //@Getter
@@ -22,6 +27,16 @@ import javax.persistence.Table;
 
 @Entity   //by this this class now represents entity Table in our database application
 @Table(name = "employee")
+@SQLDelete(sql = "UPDATE employee SET Delete_Flag=true WHERE id=?")
+@FilterDef(
+        name = "deletedEmployeeFilter",
+        parameters = @ParamDef(name = "isDeleted", type = "boolean")
+)
+@Filter(
+        name = "deletedEmployeeFilter",
+        condition = "Delete_Flag = :isDeleted"
+)
+
 public class Employee {
 	
 	//@JsonProperty("fullname")
@@ -62,7 +77,8 @@ public class Employee {
 	@JoinColumn(name = "manager")
 	private Employee manager;
 	
-
+	@Column(name = "Delete_Flag")
+	private Boolean deleted = Boolean.FALSE;
 
 	
 
@@ -109,8 +125,19 @@ public class Employee {
 
 
 
+	
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", age=" + age + ", location=" + location + ", email=" + email
+				+ ", department=" + department + ", benifits=" + benifits + ", manager=" + manager + ", deleted="
+				+ deleted + "]";
+	}
+	
+	
+	
+	
 	public Employee(Long id, String name, Long age, String location, String email, Department department,
-			Benifits benifits, Employee manager) {
+			Benifits benifits, Employee manager, Boolean deleted) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -120,11 +147,7 @@ public class Employee {
 		this.department = department;
 		this.benifits = benifits;
 		this.manager = manager;
-	}
-	@Override
-	public String toString() {
-		return "Employee [id=" + id + ", name=" + name + ", age=" + age + ", location=" + location + ", email=" + email
-				+ ", department=" + department + ", benifits=" + benifits + ", manager=" + manager + "]";
+		this.deleted = deleted;
 	}
 	public Employee() {
 		super();
@@ -135,6 +158,12 @@ public class Employee {
 	}
 	public void setBenifits(Benifits benifits) {
 		this.benifits = benifits;
+	}
+	public Boolean getDeleted() {
+		return deleted;
+	}
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
 	}
 
 	

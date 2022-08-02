@@ -13,7 +13,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
 @SpringBootApplication
-@EnableSwagger2
+//@EnableSwagger2
 public class DemoApplication {
 
 	public static void main(String[] args) {
@@ -26,12 +26,5 @@ public class DemoApplication {
 		return new ModelMapper();
 	}
 	
-	@Bean
-	public Docket productapi()
-	{
-		return new Docket(DocumentationType.SWAGGER_2)
-				.select()
-				.apis(RequestHandlerSelectors.basePackage("com.RestProject1.springrestapi"))
-				.build();
-	}
+
 }

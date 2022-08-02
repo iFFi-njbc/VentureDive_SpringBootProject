@@ -186,5 +186,19 @@ public class EmployeeController {
 	{
 		return new ResponseEntity<List<EmployeeDTO>>(convert.entityToDto(empService.getEmployeesbyNameandLocation(name, location)), HttpStatus.OK);
 	}
+	
+	
+	@GetMapping(value = "/employeesByFilter")
+	public ResponseEntity<List<EmployeeDTO>> findAll(
+	@RequestParam(value = "isDeleted", defaultValue = "false") boolean isDeleted) {
+	    List<Employee> emp = empService.findAllFilter(isDeleted);
+		List<EmployeeDTO> dto = convert.entityToDto(emp);
+		for(EmployeeDTO e : dto )
+		{
+			System.out.println(e);
+		}
+	    
+	    return new ResponseEntity<List<EmployeeDTO>>(dto, HttpStatus.OK);
+	}
 
 }
