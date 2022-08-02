@@ -20,12 +20,12 @@ public class GlobalExceptionHandler{
 	
 	//execute if there is an error in binding jason object into our model
 
-	@ExceptionHandler(DataIntegrityViolationException.class)
+/*	@ExceptionHandler(DataIntegrityViolationException.class)
 	public ResponseEntity<?> handleException1(DataIntegrityViolationException ex)
 	{
 		String msg = "Enter all the required feilds : " + ex.getMessage();
 		return new ResponseEntity(msg, HttpStatus.FORBIDDEN);
-	}
+	} */
 	
 	@ExceptionHandler(RuntimeException.class)
 	public ResponseEntity<?> handleException2(RuntimeException ex)
@@ -33,5 +33,49 @@ public class GlobalExceptionHandler{
 		String msg = ex.getMessage();
 		return new ResponseEntity(msg, HttpStatus.FORBIDDEN);
 	} 
+	
+	@ExceptionHandler
+	public ResponseEntity<ErrorDetails> handleBuisnessException(BuisnessException b)
+	{
+		ErrorDetails e = new ErrorDetails();
+		e.setErrorCode(b.getErrorCode());
+		e.setHttp(HttpStatus.BAD_REQUEST);
+		e.setMessage(b.getErrorMessage());
+		
+		return new ResponseEntity<ErrorDetails>(e, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<ErrorDetails> handleExceptions(Exception e)
+	{
+		ErrorDetails ed = new ErrorDetails();
+		ed.setHttp(HttpStatus.FORBIDDEN);
+		ed.setMessage("Hello ----> " + e.getMessage());
+		ed.setErrorCode("404");
+		
+		return new ResponseEntity<ErrorDetails>(ed, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(BenifitsException.class)
+	public ResponseEntity<ErrorDetails> handleBenifitsExceptions(BenifitsException e)
+	{
+		ErrorDetails ed = new ErrorDetails();
+		ed.setHttp(HttpStatus.FORBIDDEN);
+		ed.setMessage(e.getErrorMessage());
+		ed.setErrorCode(e.getErrorCode());
+		
+		return new ResponseEntity<ErrorDetails>(ed, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(DepartmentException.class)
+	public ResponseEntity<ErrorDetails> handleDepartmentExceptions(DepartmentException e)
+	{
+		ErrorDetails ed = new ErrorDetails();
+		ed.setHttp(HttpStatus.FORBIDDEN);
+		ed.setMessage(e.getErrorMessage());
+		ed.setErrorCode(e.getErrorCode());
+		
+		return new ResponseEntity<ErrorDetails>(ed, HttpStatus.BAD_REQUEST);
+	}
 	
 }

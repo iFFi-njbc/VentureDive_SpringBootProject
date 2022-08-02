@@ -7,6 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.RestProject1.springrestapi.exception.BenifitsException;
+import com.RestProject1.springrestapi.exception.BuisnessException;
 import com.RestProject1.springrestapi.model.Benifits;
 import com.RestProject1.springrestapi.model.Employee;
 import com.RestProject1.springrestapi.repository.BenifitsRepository;
@@ -25,6 +27,11 @@ public class BasicBenefitsService implements BenifitsService {
 	@Override
 	public Benifits getbenifit(Long id) {
 		
+		if(id == null || id == 0)
+		{
+			throw new BenifitsException("705", "Enter Benifits ID");
+		}
+		
 		Optional<Benifits> b = brepo.findById(id);
 		if(b.isPresent())
 		{
@@ -41,22 +48,69 @@ public class BasicBenefitsService implements BenifitsService {
 
 	@Override
 	public Benifits saveBenefit(Benifits b) {
+		
+		if(b.getId() == null)
+		{
+			throw new BenifitsException("700", "Enter Benifits ID");
+		}
+		if(b.getHealthcare().isEmpty() || b.getHealthcare().length() == 0)
+		{
+			throw new BenifitsException("701", "Missing Benifits {Healthcare}");
+		}
+		if(b.getLaptop().isEmpty() || b.getLaptop().length() == 0)
+		{
+			throw new BenifitsException("702", "Missing Benifits {laptop}");
+		}
+		if(b.getRetirementPlan().isEmpty() || b.getRetirementPlan().length() == 0)
+		{
+			throw new BenifitsException("703", "Missing Benifits {retirementplan}");
+		} 
 		return brepo.save(b);
 	}
 
 	@Override
 	public void deleteBenifit(Long id) {
-		brepo.deleteById(id);
+		Optional<Benifits> b =  brepo.findById(id);
+		if(b.isPresent())
+		{
+			brepo.deleteById(id);
+		}
+		else
+			throw new BenifitsException("704", "Benifits are not found for the ID : " + id);
+		
+		//brepo.deleteById(id);
 		
 	}
 
 	@Override
 	public Benifits updateBenifit(Benifits b) {
+		if(b.getId() == null)
+		{
+			throw new BenifitsException("706", "Enter Benifits ID");
+		}
+		if(b.getHealthcare().isEmpty() || b.getHealthcare().length() == 0)
+		{
+			throw new BenifitsException("707", "Missing Benifits {Healthcare}");
+		}
+		if(b.getLaptop().isEmpty() || b.getLaptop().length() == 0)
+		{
+			throw new BenifitsException("708", "Missing Benifits {laptop}");
+		}
+		if(b.getRetirementPlan().isEmpty() || b.getRetirementPlan().length() == 0)
+		{
+			throw new BenifitsException("709", "Missing Benifits {retirementplan}");
+		} 
 		return brepo.save(b);
 	}
 
 	@Override
 	public List<Employee> getEmployees(Long id) {
+		
+		if(id == null)
+		{
+			throw new BenifitsException("710", "Enter Benifits ID to get its Employees");
+		}
+		
 		List<Employee> emp = new ArrayList<Employee>();
 		
 		for(Employee e : eService.getEmployees())

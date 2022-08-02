@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.RestProject1.springrestapi.Converter.Convertor;
 import com.RestProject1.springrestapi.DTO.EmployeeDTO;
+import com.RestProject1.springrestapi.exception.BuisnessException;
 import com.RestProject1.springrestapi.model.Benifits;
 import com.RestProject1.springrestapi.model.Department;
 import com.RestProject1.springrestapi.model.Employee;
@@ -65,18 +66,28 @@ public class EmployeeController {
 	
 	
 	@GetMapping("/employees")  //--->@RequestMapping(--)
-	public List<EmployeeDTO> getEmployees()
+	public ResponseEntity<List<EmployeeDTO>> getEmployees()
 	{
+
 		List<Employee> emp = empService.getEmployees();
 		List<EmployeeDTO> dto = convert.entityToDto(emp);
-		return dto;
+		return new ResponseEntity<List<EmployeeDTO>>(dto, HttpStatus.OK);
+	
 	}
+	
+	
+	
+	
+	
 	
 	@GetMapping("/employees/{id}") //PathVariable
 	public EmployeeDTO getEmployee(@PathVariable("id") Long id)
 	{
 		return convert.entityToDto(empService.getEmployee(id));
 	}
+	
+	
+	
 	
 	@PutMapping("/employees/{id}")
 	public EmployeeDTO updateEmployee(@PathVariable Long id, @RequestBody EmployeeDTO dto)
@@ -110,11 +121,14 @@ public class EmployeeController {
 		return convert.entityToDto(empService.updateEmployee(emp));
 	}
 	
+	
+	
+	
+	
+	
 	@PostMapping("/employees")
-	public EmployeeDTO saveEmployee(@RequestBody EmployeeDTO empreq)
+	public ResponseEntity<EmployeeDTO> saveEmployee(@RequestBody EmployeeDTO empreq)
 	{
-		
-		
 		
 		Employee e = new Employee();
 		e = convert.dtoToEntity(empreq);
@@ -144,9 +158,15 @@ public class EmployeeController {
 		//return empService.saveEmployee(empreq); */
 
 		
-		return convert.entityToDto(empService.saveEmployee(e));
-		
+		return new ResponseEntity<EmployeeDTO>(convert.entityToDto(empService.saveEmployee(e)), HttpStatus.OK);
+
 	}
+	
+	
+	
+	
+	
+	
 	
 	//localhost:8080/employees?id=24
 	@DeleteMapping("/employees") //dealing with requestParams
@@ -156,6 +176,10 @@ public class EmployeeController {
 		empService.deleteEmployee(id);
 
 	}
+	
+	
+	
+	
 	
 	@GetMapping("/employees/getEmployeesByNameAndLocation")
 	public ResponseEntity<List<EmployeeDTO>> getEmployeesByNameAndLocation(@RequestParam String name, @RequestParam String location)
