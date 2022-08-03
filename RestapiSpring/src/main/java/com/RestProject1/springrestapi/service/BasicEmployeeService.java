@@ -66,7 +66,7 @@ public class BasicEmployeeService implements EmployeeService{
 			{
 				throw new BuisnessException("611", "Employee Age is null !!!");
 			}
-			if(emp.getBenifits().getId()== null)
+			if(emp.getBenifits()== null)
 			{
 				throw new BuisnessException("622", "Employee's benefits ID is null");
 			}

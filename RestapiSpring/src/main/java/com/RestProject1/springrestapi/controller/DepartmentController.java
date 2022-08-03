@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.RestProject1.springrestapi.Converter.Convertor;
 import com.RestProject1.springrestapi.Converter.DepartmentConvertor;
+import com.RestProject1.springrestapi.DTO.DeleteDTO;
 import com.RestProject1.springrestapi.DTO.DepartmentDTO;
 import com.RestProject1.springrestapi.DTO.EmployeeDTO;
 import com.RestProject1.springrestapi.model.Benifits;
@@ -37,6 +39,9 @@ public class DepartmentController {
 	
 	@Autowired
 	private DepartmentConvertor convert;
+	
+	@Autowired
+	private Convertor convert2;
 	
 
 	
@@ -79,9 +84,18 @@ public class DepartmentController {
 	
 	//localhost:8080/employees?id=24
 	@DeleteMapping("/departments") //dealing with requestParams
-	public void deleteEmployee(@RequestParam("id") Long id) //if the requestparam parameter name is same is Long variable then we do not have to specify paramter in requestparam
+	public ResponseEntity<DeleteDTO> deleteEmployee(@RequestParam("id") Long id) //if the requestparam parameter name is same is Long variable then we do not have to specify paramter in requestparam
 	{
 		dService.deleteDepartment(id);
+		return new ResponseEntity<DeleteDTO>(new DeleteDTO("Department is deleted", id),  HttpStatus.OK);
+	}
+	
+	@GetMapping("departments/getEmployees")
+	public List<EmployeeDTO> getEmployees(@RequestParam Long id)
+	{
+		List<Employee> emp = dService.getEmployees(id);
+		List<EmployeeDTO> dto = convert2.entityToDto(emp);
+		return dto;
 	}
 
 }

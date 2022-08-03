@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.RestProject1.springrestapi.Converter.Convertor;
+import com.RestProject1.springrestapi.DTO.DeleteDTO;
 import com.RestProject1.springrestapi.DTO.EmployeeDTO;
 import com.RestProject1.springrestapi.exception.BuisnessException;
 import com.RestProject1.springrestapi.model.Benifits;
@@ -84,6 +85,7 @@ public class EmployeeController {
 	public EmployeeDTO getEmployee(@PathVariable("id") Long id)
 	{
 		return convert.entityToDto(empService.getEmployee(id));
+		//return empService.getEmployee(id);
 	}
 	
 	
@@ -170,11 +172,11 @@ public class EmployeeController {
 	
 	//localhost:8080/employees?id=24
 	@DeleteMapping("/employees") //dealing with requestParams
-	public void deleteEmployee(@RequestParam("id") Long id) //if the requestparam parameter name is same is Long variable then we do not have to specify paramter in requestparam
+	public ResponseEntity<DeleteDTO> deleteEmployee(@RequestParam("id") Long id) //if the requestparam parameter name is same is Long variable then we do not have to specify paramter in requestparam
 	{
 
 		empService.deleteEmployee(id);
-
+		return new ResponseEntity<DeleteDTO>(new DeleteDTO("Employee is deleted", id),  HttpStatus.OK);
 	}
 	
 	

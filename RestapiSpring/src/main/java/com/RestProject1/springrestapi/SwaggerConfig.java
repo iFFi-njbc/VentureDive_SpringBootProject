@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -23,10 +24,14 @@ public class SwaggerConfig {
 	}
 
 	private ApiInfo apiInfo() {
+		
 		return new ApiInfoBuilder().title("EMPLOYEE MANAGEMENT SYSTEM API")
 				.description("API reference for developers")
 				.termsOfServiceUrl("http://EMS_API.com")
 				.licenseUrl("ifrahmasood2508@gmail.com").version("2.7").build();
+
 	}
+	
+
 	
 }

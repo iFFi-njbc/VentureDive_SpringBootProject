@@ -1,5 +1,6 @@
 package com.RestProject1.springrestapi.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +20,9 @@ public class BasicDepartmentService implements DepartmentService {
 	
 	 @Autowired
 	private DepartmentRepository drepo; 
+	 
+	 @Autowired
+	 private EmployeeService eService;
 	
 
 	@Override
@@ -30,10 +34,10 @@ public class BasicDepartmentService implements DepartmentService {
 
 	@Override
 	public Department saveDepartment(Department d) {
-		if(d.getId() == null)
+		/*if(d.getId() == null)
 		{
 			throw new DepartmentException("800", "Enter Department ID");
-		}
+		}*/
 		if(d.getName().isEmpty()  || d.getName().length() == 0)
 		{
 			throw new DepartmentException("801", "Enter proper Department name");
@@ -76,15 +80,30 @@ public class BasicDepartmentService implements DepartmentService {
 
 	@Override
 	public Department updateDepartment(Department d) {
-		if(d.getId() == null)
+		/*if(d.getId() == null)
 		{
 			throw new DepartmentException("800", "Enter Department ID");
-		}
+		}*/
 		if(d.getName().isEmpty()  || d.getName().length() == 0)
 		{
 			throw new DepartmentException("801", "Enter proper Department name");
 		}
 		return drepo.save(d);
+	}
+	
+	public List<Employee> getEmployees(Long id)
+	{
+		List<Employee> emp = new ArrayList<Employee>();
+
+		for(Employee e : eService.getEmployees())
+		{
+			if(e.getDepartment().getId().equals(id))
+			{
+				emp.add(e);
+			}
+		}
+		
+		return emp;
 	}
 
 }

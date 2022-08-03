@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "benifits")
 public class Benifits {
@@ -30,13 +32,36 @@ public class Benifits {
 	@Column(name = "healthcare")
 	private String healthcare;
 	
-/*	@OneToMany(mappedBy = "benifits")
-	private List<Employee> employees; */
+	@OneToMany(mappedBy = "benifits", fetch = FetchType.EAGER)
+	@JsonBackReference
+	private List<Employee> employees; 
 	
 
 	public Benifits() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+
+
+
+
+
+
+
+	public List<Employee> getEmployees() {
+		return employees;
+	}
+
+
+
+
+
+
+
+
+	public void setEmployees(List<Employee> employees) {
+		this.employees = employees;
 	}
 
 

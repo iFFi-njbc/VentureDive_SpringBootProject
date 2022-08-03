@@ -49,10 +49,10 @@ public class BasicBenefitsService implements BenifitsService {
 	@Override
 	public Benifits saveBenefit(Benifits b) {
 		
-		if(b.getId() == null)
+		/*if(b.getId() == null)
 		{
 			throw new BenifitsException("700", "Enter Benifits ID");
-		}
+		}*/
 		if(b.getHealthcare().isEmpty() || b.getHealthcare().length() == 0)
 		{
 			throw new BenifitsException("701", "Missing Benifits {Healthcare}");
@@ -84,10 +84,10 @@ public class BasicBenefitsService implements BenifitsService {
 
 	@Override
 	public Benifits updateBenifit(Benifits b) {
-		if(b.getId() == null)
+		/*if(b.getId() == null)
 		{
 			throw new BenifitsException("706", "Enter Benifits ID");
-		}
+		}*/
 		if(b.getHealthcare().isEmpty() || b.getHealthcare().length() == 0)
 		{
 			throw new BenifitsException("707", "Missing Benifits {Healthcare}");
@@ -112,7 +112,7 @@ public class BasicBenefitsService implements BenifitsService {
 		}
 		
 		List<Employee> emp = new ArrayList<Employee>();
-		
+
 		for(Employee e : eService.getEmployees())
 		{
 			if(e.getBenifits().getId().equals(id))
@@ -120,7 +120,6 @@ public class BasicBenefitsService implements BenifitsService {
 				emp.add(e);
 			}
 		}
-		
 		return emp;
 	}
 	

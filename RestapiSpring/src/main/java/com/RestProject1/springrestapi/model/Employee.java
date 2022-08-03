@@ -20,6 +20,8 @@ import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
 import org.hibernate.annotations.SQLDelete;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 
 //@Getter
@@ -67,10 +69,12 @@ public class Employee {
 	
 	@ManyToOne
 	@JoinColumn(name = "department")
+	@JsonManagedReference
 	private Department department; 
 	
 	@ManyToOne
 	@JoinColumn(name = "benefits_id")
+	@JsonManagedReference
 	private Benifits benifits;
 	
 	@ManyToOne
