@@ -19,6 +19,7 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
 import org.hibernate.annotations.SQLDelete;
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -26,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 //@Getter
 //@Setter
-
+@Component
 @Entity   //by this this class now represents entity Table in our database application
 @Table(name = "employee")
 @SQLDelete(sql = "UPDATE employee SET Delete_Flag=true WHERE id=?")

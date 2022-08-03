@@ -36,6 +36,12 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService empService; //as our application starts employeeservice will be injected to our Spring container
 
+	@Autowired
+	private Department d;
+	@Autowired
+	private Employee m;
+	@Autowired
+	private Benifits b;
 	
 	@Autowired
 	private BasicBenefitsService bService;
@@ -100,9 +106,9 @@ public class EmployeeController {
 		Employee emp = new Employee();
 		emp = convert.dtoToEntity(dto);
 		
-		Benifits b = new Benifits();
-		Department d = new Department();
-		Employee m = new Employee();
+		//Benifits b = new Benifits();
+		//Department d = new Department();
+		//Employee m = new Employee();
 		d = (Department)dService.getDepartment(emp.getDepartment().getId());
 		if(emp.getManager().getId() != null)
 		{
@@ -135,9 +141,9 @@ public class EmployeeController {
 		Employee e = new Employee();
 		e = convert.dtoToEntity(empreq);
 		
-		Benifits b = new Benifits();
-		Department d = new Department();
-		Employee m = new Employee();
+		//Benifits b = new Benifits();
+		//Department d = new Department();
+		//Employee m = new Employee();
 		d = (Department)dService.getDepartment(e.getDepartment().getId());
 		//m = (Manager)mService.getManager(empreq.getManager().getId());
 		if(e.getManager().getId() != null)
