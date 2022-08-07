@@ -1,4 +1,4 @@
-package com.RestProject1.springrestapi.Converter;
+package com.RestProject1.springrestapi.converter;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 
 import org.springframework.stereotype.Component;
 
-import com.RestProject1.springrestapi.DTO.EmployeeDTO;
+import com.RestProject1.springrestapi.dto.EmployeeDTO;
 import com.RestProject1.springrestapi.model.Benifits;
 import com.RestProject1.springrestapi.model.Department;
 import com.RestProject1.springrestapi.model.Employee;

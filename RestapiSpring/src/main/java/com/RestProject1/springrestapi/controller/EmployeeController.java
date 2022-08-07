@@ -2,6 +2,8 @@ package com.RestProject1.springrestapi.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -15,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.RestProject1.springrestapi.Converter.Convertor;
-import com.RestProject1.springrestapi.DTO.DeleteDTO;
-import com.RestProject1.springrestapi.DTO.EmployeeDTO;
+import com.RestProject1.springrestapi.converter.Convertor;
+import com.RestProject1.springrestapi.dto.DeleteDTO;
+import com.RestProject1.springrestapi.dto.EmployeeDTO;
 import com.RestProject1.springrestapi.exception.BuisnessException;
 import com.RestProject1.springrestapi.model.Benifits;
 import com.RestProject1.springrestapi.model.Department;
@@ -29,8 +31,12 @@ import com.RestProject1.springrestapi.service.BasicBenefitsService;
 import com.RestProject1.springrestapi.service.DepartmentService;
 import com.RestProject1.springrestapi.service.EmployeeService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 
 @RestController //@controller + @ResponseBody
+@Api(value = "Employee Controller")
 public class EmployeeController {
 	
 	@Autowired
@@ -66,6 +72,7 @@ public class EmployeeController {
 	
 	
 	@GetMapping("/version")
+	@ApiOperation(value = "GET APPLICATION DETAILS")
 	public String getAppDetails()
 	{
 		return appName + "\n" + appVersion;
@@ -73,6 +80,7 @@ public class EmployeeController {
 	
 	
 	@GetMapping("/employees")  //--->@RequestMapping(--)
+	@ApiOperation(value = "GET LIST OF ALL EMPLOYEES")
 	public ResponseEntity<List<EmployeeDTO>> getEmployees()
 	{
 
@@ -88,6 +96,7 @@ public class EmployeeController {
 	
 	
 	@GetMapping("/employees/{id}") //PathVariable
+	@ApiOperation(value = "GET EMPLOYEE DETAILS WITH ID")
 	public EmployeeDTO getEmployee(@PathVariable("id") Long id)
 	{
 		return convert.entityToDto(empService.getEmployee(id));
@@ -98,7 +107,8 @@ public class EmployeeController {
 	
 	
 	@PutMapping("/employees/{id}")
-	public EmployeeDTO updateEmployee(@PathVariable Long id, @RequestBody EmployeeDTO dto)
+	@ApiOperation(value = "UPDATE EMPLOYEE DETAILS")
+	public EmployeeDTO updateEmployee(@PathVariable Long id, @Valid @RequestBody EmployeeDTO dto)
 	{
 		System.out.println("Updating the Employee Data for Employee ID : " + id);
 		dto.setId(id);
@@ -135,7 +145,8 @@ public class EmployeeController {
 	
 	
 	@PostMapping("/employees")
-	public ResponseEntity<EmployeeDTO> saveEmployee(@RequestBody EmployeeDTO empreq)
+	@ApiOperation(value = "CREATE A NEW EMPLOYEE")
+	public ResponseEntity<EmployeeDTO> saveEmployee(@Valid @RequestBody EmployeeDTO empreq)
 	{
 		
 		Employee e = new Employee();
@@ -178,6 +189,7 @@ public class EmployeeController {
 	
 	//localhost:8080/employees?id=24
 	@DeleteMapping("/employees") //dealing with requestParams
+	@ApiOperation(value = "DELETE AN EMPLOYEE")
 	public ResponseEntity<DeleteDTO> deleteEmployee(@RequestParam("id") Long id) //if the requestparam parameter name is same is Long variable then we do not have to specify paramter in requestparam
 	{
 
@@ -190,6 +202,7 @@ public class EmployeeController {
 	
 	
 	@GetMapping("/employees/getEmployeesByNameAndLocation")
+	@ApiOperation(value = "GET EMPLOYEE BY NAME AND LOCATION")
 	public ResponseEntity<List<EmployeeDTO>> getEmployeesByNameAndLocation(@RequestParam String name, @RequestParam String location)
 	{
 		return new ResponseEntity<List<EmployeeDTO>>(convert.entityToDto(empService.getEmployeesbyNameandLocation(name, location)), HttpStatus.OK);
@@ -197,6 +210,7 @@ public class EmployeeController {
 	
 	
 	@GetMapping(value = "/employeesByFilter")
+	@ApiOperation(value = "GET DELETED EMPLOYEES BY SETTING VALUE OF 'isDeleted' TO TRUE")
 	public ResponseEntity<List<EmployeeDTO>> findAll(
 	@RequestParam(value = "isDeleted", defaultValue = "false") boolean isDeleted) {
 	    List<Employee> emp = empService.findAllFilter(isDeleted);

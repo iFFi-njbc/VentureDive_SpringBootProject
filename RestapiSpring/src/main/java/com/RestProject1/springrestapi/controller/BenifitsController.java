@@ -3,6 +3,8 @@ package com.RestProject1.springrestapi.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -16,12 +18,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.RestProject1.springrestapi.Converter.BenifitsConvertor;
-import com.RestProject1.springrestapi.Converter.Convertor;
-import com.RestProject1.springrestapi.DTO.BenifitsDTO;
-import com.RestProject1.springrestapi.DTO.DeleteDTO;
-import com.RestProject1.springrestapi.DTO.DepartmentDTO;
-import com.RestProject1.springrestapi.DTO.EmployeeDTO;
+import com.RestProject1.springrestapi.converter.BenifitsConvertor;
+import com.RestProject1.springrestapi.converter.Convertor;
+import com.RestProject1.springrestapi.dto.BenifitsDTO;
+import com.RestProject1.springrestapi.dto.DeleteDTO;
+import com.RestProject1.springrestapi.dto.DepartmentDTO;
+import com.RestProject1.springrestapi.dto.EmployeeDTO;
 import com.RestProject1.springrestapi.model.Benifits;
 import com.RestProject1.springrestapi.model.Department;
 import com.RestProject1.springrestapi.model.Employee;
@@ -29,7 +31,11 @@ import com.RestProject1.springrestapi.service.BasicEmployeeService;
 import com.RestProject1.springrestapi.service.BenifitsService;
 import com.RestProject1.springrestapi.service.EmployeeService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
+@Api(value = "Benifits Controller")
 public class BenifitsController {
 	
 	
@@ -47,6 +53,7 @@ public class BenifitsController {
 	private Convertor convert2;
 	
 	@GetMapping("/benifits")  //--->@RequestMapping(--)
+	@ApiOperation(value = "GET LIST OF ALL BENEFITS")
 	public List<BenifitsDTO> getBenifits()
 	{
 		List<Benifits> b = bService.getBenifits();
@@ -55,13 +62,15 @@ public class BenifitsController {
 	}
 	
 	@GetMapping("/benifits/{id}") //PathVariable
+	@ApiOperation(value = "GET BENEFITS WITH THE HELP OF ID")
 	public BenifitsDTO getBenifit(@PathVariable("id") Long id)
 	{
 		return convert.entityToDto(bService.getbenifit(id));
 	}
 	
 	@PutMapping("/benifits/{id}")
-	public BenifitsDTO updateBenifit(@PathVariable Long id, @RequestBody BenifitsDTO dto)
+	@ApiOperation(value = "UPDATE BENEFITS")
+	public BenifitsDTO updateBenifit(@PathVariable Long id, @Valid @RequestBody BenifitsDTO dto)
 	{
 		System.out.println("Updating the Benifits Data for  ID : " + id);
 		dto.setId(id);
@@ -75,7 +84,8 @@ public class BenifitsController {
 	}
 	
 	@PostMapping("/benifits")
-	public BenifitsDTO saveBenifit(@RequestBody BenifitsDTO dto)
+	@ApiOperation(value = "SAVE BENEFITS")
+	public BenifitsDTO saveBenifit(@Valid  @RequestBody BenifitsDTO dto)
 	{
 		Benifits b = new Benifits();
 		b = convert.dtoToEntity(dto);
@@ -85,6 +95,7 @@ public class BenifitsController {
 	
 	//localhost:8080/employees?id=24
 	@DeleteMapping("/benifits") //dealing with requestParams
+	@ApiOperation(value = "DELETE BENIFTS")
 	public ResponseEntity<DeleteDTO> deleteEmployee(@RequestParam("id") Long id) //if the requestparam parameter name is same is Long variable then we do not have to specify paramter in requestparam
 	{
 		bService.deleteBenifit(id);
@@ -92,6 +103,7 @@ public class BenifitsController {
 	}
 	
 	@GetMapping("/getEmployeesByBenifits")
+	@ApiOperation(value = "GET ALL EMPLOYEES WITH GIVEN BENIFITS ID")
 	public List<EmployeeDTO> getEmployees(@RequestParam("id") Long id)
 	{
 		List<Employee> emp = bService.getEmployees(id);

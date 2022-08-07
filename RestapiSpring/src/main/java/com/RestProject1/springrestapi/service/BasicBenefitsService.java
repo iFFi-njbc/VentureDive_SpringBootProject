@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.RestProject1.springrestapi.exception.BenifitsException;
+
 import com.RestProject1.springrestapi.exception.BuisnessException;
 import com.RestProject1.springrestapi.model.Benifits;
 import com.RestProject1.springrestapi.model.Employee;
@@ -29,7 +29,7 @@ public class BasicBenefitsService implements BenifitsService {
 		
 		if(id == null || id == 0)
 		{
-			throw new BenifitsException("705", "Enter Benifits ID");
+			throw new BuisnessException("705", "Enter Benifits ID");
 		}
 		
 		Optional<Benifits> b = brepo.findById(id);
@@ -55,15 +55,15 @@ public class BasicBenefitsService implements BenifitsService {
 		}*/
 		if(b.getHealthcare().isEmpty() || b.getHealthcare().length() == 0)
 		{
-			throw new BenifitsException("701", "Missing Benifits {Healthcare}");
+			throw new BuisnessException("701", "Missing Benifits {Healthcare}");
 		}
 		if(b.getLaptop().isEmpty() || b.getLaptop().length() == 0)
 		{
-			throw new BenifitsException("702", "Missing Benifits {laptop}");
+			throw new BuisnessException("702", "Missing Benifits {laptop}");
 		}
 		if(b.getRetirementPlan().isEmpty() || b.getRetirementPlan().length() == 0)
 		{
-			throw new BenifitsException("703", "Missing Benifits {retirementplan}");
+			throw new BuisnessException("703", "Missing Benifits {retirementplan}");
 		} 
 		return brepo.save(b);
 	}
@@ -76,7 +76,7 @@ public class BasicBenefitsService implements BenifitsService {
 			brepo.deleteById(id);
 		}
 		else
-			throw new BenifitsException("704", "Benifits are not found for the ID : " + id);
+			throw new BuisnessException("704", "Benifits are not found for the ID : " + id);
 		
 		//brepo.deleteById(id);
 		
@@ -90,15 +90,15 @@ public class BasicBenefitsService implements BenifitsService {
 		}*/
 		if(b.getHealthcare().isEmpty() || b.getHealthcare().length() == 0)
 		{
-			throw new BenifitsException("707", "Missing Benifits {Healthcare}");
+			throw new BuisnessException("707", "Missing Benifits {Healthcare}");
 		}
 		if(b.getLaptop().isEmpty() || b.getLaptop().length() == 0)
 		{
-			throw new BenifitsException("708", "Missing Benifits {laptop}");
+			throw new BuisnessException("708", "Missing Benifits {laptop}");
 		}
 		if(b.getRetirementPlan().isEmpty() || b.getRetirementPlan().length() == 0)
 		{
-			throw new BenifitsException("709", "Missing Benifits {retirementplan}");
+			throw new BuisnessException("709", "Missing Benifits {retirementplan}");
 		} 
 		return brepo.save(b);
 	}
@@ -108,7 +108,7 @@ public class BasicBenefitsService implements BenifitsService {
 		
 		if(id == null)
 		{
-			throw new BenifitsException("710", "Enter Benifits ID to get its Employees");
+			throw new BuisnessException("710", "Enter Benifits ID to get its Employees");
 		}
 		
 		List<Employee> emp = new ArrayList<Employee>();

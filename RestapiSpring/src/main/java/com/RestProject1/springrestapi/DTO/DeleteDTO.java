@@ -1,4 +1,4 @@
-package com.RestProject1.springrestapi.DTO;
+package com.RestProject1.springrestapi.dto;
 
 public class DeleteDTO {
 

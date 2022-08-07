@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
@@ -22,6 +23,10 @@ import org.hibernate.annotations.SQLDelete;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.NonNull;
 
 
 
@@ -39,6 +44,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
         name = "deletedEmployeeFilter",
         condition = "Delete_Flag = :isDeleted"
 )
+
 
 public class Employee {
 	

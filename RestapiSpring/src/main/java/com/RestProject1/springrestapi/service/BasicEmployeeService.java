@@ -12,8 +12,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.RestProject1.springrestapi.Converter.Convertor;
-import com.RestProject1.springrestapi.DTO.EmployeeDTO;
+import com.RestProject1.springrestapi.converter.Convertor;
+import com.RestProject1.springrestapi.dto.EmployeeDTO;
 import com.RestProject1.springrestapi.exception.BuisnessException;
 import com.RestProject1.springrestapi.model.Employee;
 import com.RestProject1.springrestapi.repository.BenifitsRepository;
@@ -64,7 +64,7 @@ public class BasicEmployeeService implements EmployeeService{
 			}
 			if(emp.getAge() == null)
 			{
-				throw new BuisnessException("611", "Employee Age is null !!!");
+				throw new BuisnessException("611", "Employee Age cannot be null !!!");
 			}
 			if(emp.getBenifits()== null)
 			{

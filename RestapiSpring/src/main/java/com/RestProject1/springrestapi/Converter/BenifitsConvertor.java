@@ -1,12 +1,12 @@
-package com.RestProject1.springrestapi.Converter;
+package com.RestProject1.springrestapi.converter;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import com.RestProject1.springrestapi.DTO.BenifitsDTO;
-import com.RestProject1.springrestapi.DTO.DepartmentDTO;
+import com.RestProject1.springrestapi.dto.BenifitsDTO;
+import com.RestProject1.springrestapi.dto.DepartmentDTO;
 import com.RestProject1.springrestapi.model.Benifits;
 import com.RestProject1.springrestapi.model.Department;
 

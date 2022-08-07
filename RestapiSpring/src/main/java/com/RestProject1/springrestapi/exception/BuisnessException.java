@@ -1,5 +1,6 @@
 package com.RestProject1.springrestapi.exception;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -12,6 +13,15 @@ public class BuisnessException extends RuntimeException {
 	
 	private String errorCode;
 	private String errorMessage;
+	private HttpStatus http;
+	
+	
+	public HttpStatus getHttp() {
+		return http;
+	}
+	public void setHttp(HttpStatus http) {
+		this.http = http;
+	}
 	public String getErrorCode() {
 		return errorCode;
 	}
@@ -29,7 +39,13 @@ public class BuisnessException extends RuntimeException {
 	}
 	@Override
 	public String toString() {
-		return "BuisnessException [errorCode=" + errorCode + ", errorMessage=" + errorMessage + "]";
+		return "BuisnessException [errorCode=" + errorCode + ", errorMessage=" + errorMessage + ", http=" + http + "]";
+	}
+	public BuisnessException(String errorCode, String errorMessage, HttpStatus http) {
+		super();
+		this.errorCode = errorCode;
+		this.errorMessage = errorMessage;
+		this.http = http;
 	}
 	public BuisnessException(String errorCode, String errorMessage) {
 		super();

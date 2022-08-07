@@ -18,6 +18,8 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import io.swagger.annotations.ApiModel;
+
 @Component
 @Entity
 @Table(name = "benifits")
@@ -26,6 +28,7 @@ public class Benifits {
 	@Id
 	@GeneratedValue()
 	@Column(name = "id")
+	
 	private Long id;
 	
 	@Column(name = "RetirementPlan")

@@ -2,6 +2,8 @@ package com.RestProject1.springrestapi.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -15,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.RestProject1.springrestapi.Converter.Convertor;
-import com.RestProject1.springrestapi.Converter.DepartmentConvertor;
-import com.RestProject1.springrestapi.DTO.DeleteDTO;
-import com.RestProject1.springrestapi.DTO.DepartmentDTO;
-import com.RestProject1.springrestapi.DTO.EmployeeDTO;
+import com.RestProject1.springrestapi.converter.Convertor;
+import com.RestProject1.springrestapi.converter.DepartmentConvertor;
+import com.RestProject1.springrestapi.dto.DeleteDTO;
+import com.RestProject1.springrestapi.dto.DepartmentDTO;
+import com.RestProject1.springrestapi.dto.EmployeeDTO;
 import com.RestProject1.springrestapi.model.Benifits;
 import com.RestProject1.springrestapi.model.Department;
 import com.RestProject1.springrestapi.model.Employee;
@@ -27,8 +29,12 @@ import com.RestProject1.springrestapi.service.BasicBenefitsService;
 import com.RestProject1.springrestapi.service.DepartmentService;
 import com.RestProject1.springrestapi.service.EmployeeService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 
 @RestController
+@Api(value = "Department Controller")
 public class DepartmentController {
 	
 	@Autowired
@@ -46,6 +52,7 @@ public class DepartmentController {
 
 	
 	@GetMapping("/departments")  //--->@RequestMapping(--)
+	@ApiOperation(value = "GET LIST OF ALL DEPARTMENTS")
 	public List<DepartmentDTO> getDepartments()
 	{
 		List<Department> d = dService.getDepartments();
@@ -54,13 +61,15 @@ public class DepartmentController {
 	}
 	
 	@GetMapping("/departments/{id}") //PathVariable
+	@ApiOperation(value = "GET DEPARTMENT WITH THE ID")
 	public DepartmentDTO getDepartment(@PathVariable("id") Long id)
 	{
 		return convert.entityToDto(dService.getDepartment(id));
 	}
 	
 	@PutMapping("/departments/{id}")
-	public DepartmentDTO updateDepartment(@PathVariable Long id, @RequestBody DepartmentDTO dto)
+	@ApiOperation(value = "UPDATE A DEPARTMENT")
+	public DepartmentDTO updateDepartment(@PathVariable Long id, @Valid @RequestBody DepartmentDTO dto)
 	{
 		
 		System.out.println("Updating the Department for ID : " + id);
@@ -74,7 +83,8 @@ public class DepartmentController {
 	}
 	
 	@PostMapping("/departments")
-	public DepartmentDTO saveDepartment(@RequestBody DepartmentDTO dto)
+	@ApiOperation(value = "CREATE A DEPARTMENT")
+	public DepartmentDTO saveDepartment(@Valid @RequestBody DepartmentDTO dto)
 	{
 		Department d = new Department();
 		d = convert.dtoToEntity(dto);
@@ -84,6 +94,7 @@ public class DepartmentController {
 	
 	//localhost:8080/employees?id=24
 	@DeleteMapping("/departments") //dealing with requestParams
+	@ApiOperation(value = "DELETE A DEPARTMENT")
 	public ResponseEntity<DeleteDTO> deleteEmployee(@RequestParam("id") Long id) //if the requestparam parameter name is same is Long variable then we do not have to specify paramter in requestparam
 	{
 		dService.deleteDepartment(id);
@@ -91,6 +102,7 @@ public class DepartmentController {
 	}
 	
 	@GetMapping("departments/getEmployees")
+	@ApiOperation(value = "GET LIST OF ALL EMPLOYEES WITH THE GIVEN DEPARTMENT ID")
 	public List<EmployeeDTO> getEmployees(@RequestParam Long id)
 	{
 		List<Employee> emp = dService.getEmployees(id);

@@ -1,9 +1,13 @@
 package com.RestProject1.springrestapi;
 
+import java.util.Collections;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
@@ -16,22 +20,55 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
 
 	@Bean
-	public Docket productapi()
+	public Docket apiDocket()
 	{
 		return new Docket(DocumentationType.SWAGGER_2)
-				.groupName("VentureDive_PROJECT1-api")
-				.apiInfo(apiInfo()).select().build();
+				.select()
+	            .apis(RequestHandlerSelectors.basePackage("com.RestProject1.springrestapi"))
+	            .paths(PathSelectors.any())
+	            .build()
+	            .apiInfo(getApiInfo());
 	}
 
-	private ApiInfo apiInfo() {
-		
-		return new ApiInfoBuilder().title("EMPLOYEE MANAGEMENT SYSTEM API")
-				.description("API reference for developers")
-				.termsOfServiceUrl("http://EMS_API.com")
-				.licenseUrl("ifrahmasood2508@gmail.com").version("2.7").build();
+	private ApiInfo getApiInfo() {
+	    return new ApiInfo(
+	            "EMPLOYEE MANAGEMENT SYTEM API",
+	            "Api Reference for Developers",
+	            "2.7",
+	            "TERMS OF SERVICE URL",
+	            new Contact("Ifrah","https://EMS_API.com","ifrahmasood2508@gmail.com"),
+	            "LICENSE",
+	            "LICENSE URL",
+	            Collections.emptyList()
+	    );
+
 
 	}
 	
 
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*	return new ApiInfoBuilder().title("EMPLOYEE MANAGEMENT SYSTEM API")
+.description("API reference for developers")
+.termsOfServiceUrl("http://EMS_API.com")
+.licenseUrl("License URL").version("2.7").build(); */

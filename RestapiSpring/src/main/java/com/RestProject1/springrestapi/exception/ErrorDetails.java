@@ -4,6 +4,10 @@ import org.springframework.http.HttpStatus;
 
 public class ErrorDetails {
 	
+	/**
+	 * 
+	 */
+
 	private String message;
 	private String errorCode;
 	
